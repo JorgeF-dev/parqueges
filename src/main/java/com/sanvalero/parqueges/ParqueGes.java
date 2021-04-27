@@ -93,7 +93,6 @@ public class ParqueGes {
             for (Parque parque : parque1) {
                 System.out.print(parque);
             }
-
         } catch (SQLException sqle) {
             System.out.println("Se ha producido un problema leyendo los datos");
             sqle.printStackTrace();
@@ -101,14 +100,14 @@ public class ParqueGes {
     }
 
     private void verParquesComunidad() {
-        System.out.println("Introduce el nombre de la comunidad autónoma:");
+        System.out.println("Introduce el nombre de la comunidad autónoma sin tildes:");
         String ccaa = teclado.next();
         try {
-            int id_ciudad = ciudadDAO.verId(ccaa);
+            int id_ciudad = ciudadDAO.verIdCCAA(ccaa);
             ArrayList<Parque> parque1;
             parque1 = parqueDAO.listarParques(id_ciudad);
             for (Parque parque : parque1) {
-                System.out.println(parque);
+                System.out.print(parque);
             }
 
         } catch (SQLException sqle) {
@@ -118,7 +117,7 @@ public class ParqueGes {
     }
 
     private void addParqueAciudad() {
-        int id_ciudad = 0;
+        int id_ciudad;
         System.out.println("Nombra la ciudad: (ej. Madrid)");
         String nombre = teclado.next();
         try {
@@ -146,6 +145,26 @@ public class ParqueGes {
 //TODO falta terminar en ParqueDAO, no funciona
 
     private void modificarParque() {
+        int id_parque;
+        System.out.println("Nombra el parque: (ej. Labordeta)");
+        String nombre = teclado.next();
+        Ciudad ciudad = new Ciudad();
+        Parque parque = new Parque();
+        try {
+            id_parque = parqueDAO.verIdParque(nombre);
+            System.out.println("Has elegido el parque:" + nombre + "En: " + ciudad.getNombre() + "Extension: " + parque.getExtension());
+//                parqueDAO.crearParque(parque);
+//                System.out.println("Se ha creado el parque correctamente");
+        } catch (SQLException sqle) {
+            System.out.println("El nombre del parque no es correcto");
+            sqle.printStackTrace();
+        }
+        System.out.println("Nuevo nombre del parque: ");
+        String nuevonombre = teclado.next();
+        System.out.println("Ciudad: ");
+        String nuevaciudad = teclado.next();
+        System.out.println("Nueva extension: ");
+        String nuevaextension = teclado.next();
 
     }
 
@@ -157,6 +176,7 @@ public class ParqueGes {
             parque1 = parqueDAO.buscarParque(cadenaBusqueda);
             for (Parque parque : parque1) {
                 System.out.println(parque);
+                System.out.println(parque);
             }
         } catch (SQLException sqle) {
             System.out.println("Se ha producido un problema leyendo los datos");
@@ -164,14 +184,10 @@ public class ParqueGes {
         }
     }
 
-    /*
-CuentaCorriente = Parque  ParqueDAO parqueDAO parque
-Usuario =  Ciudad    CiudadDAO  ciudadDAO ciudad
-     */
     private void numParquesExt() {
         //parques de una determinada ciudad cuya extension individual sea mayor de la que ponga
-        int id_ciudad = 0;
-        int cantidad1 = 0;
+        int id_ciudad;
+        int cantidad1;
         System.out.println("Nombra la ciudad: (ej. Madrid)");
         String nombre = teclado.next();
         try {
@@ -194,6 +210,7 @@ Usuario =  Ciudad    CiudadDAO  ciudadDAO ciudad
         String nombre = teclado.next();
         try {
             id_ciudad = ciudadDAO.verId(nombre);
+            System.out.println("Parques de la ciudad borrados");
         } catch (SQLException sqle) {
             System.out.println("Se ha producido un problema leyendo los datos");
             sqle.printStackTrace();
@@ -207,14 +224,15 @@ Usuario =  Ciudad    CiudadDAO  ciudadDAO ciudad
         try {
             ArrayList<Ciudad> ciudad1;
             ciudad1 = ciudadDAO.listarCiudadesParquesExtension(extension);
-            for (Ciudad ciudad : ciudad1)
+            for (Ciudad ciudad : ciudad1) {
                 System.out.println(ciudad);
+            }
 
-            }catch (SQLException sqle) {
+        } catch (SQLException sqle) {
             System.out.println("Se ha producido un problema leyendo los datos");
             sqle.printStackTrace();
         }
-    } 
+    }
 
     private void salir() {
         salir = true;

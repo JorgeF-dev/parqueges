@@ -41,7 +41,10 @@ public class Ciudad {
     public void setCcaa(String ccaa) {
         this.ccaa = ccaa;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "Ciudad {" + " Nombre= " + nombre + ", comunidad autónoma= " + ccaa + '}';
+    }
 
 }

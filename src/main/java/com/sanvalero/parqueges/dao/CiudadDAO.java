@@ -18,11 +18,6 @@ public class CiudadDAO {
         this.connection = connection;
     }
 
-    /*
-CuentaCorriente = Parque  ParqueDAO parqueDAO parque
-Usuario =  Ciudad    CiudadDAO  ciudadDAO ciudad
-     */
-
     public int verId(String nombre) throws SQLException {
         String sql = "SELECT id_ciudad FROM ciudades WHERE nombre = ?";
         int id_ciudad = 0;
@@ -34,7 +29,18 @@ Usuario =  Ciudad    CiudadDAO  ciudadDAO ciudad
         }
         return id_ciudad;
     }
-
+    public int verIdCCAA(String ccaa) throws SQLException {
+        String sql = "SELECT id_ciudad FROM ciudades WHERE ccaa = ?";
+        int id_ciudad = 0;
+        PreparedStatement sentencia = connection.getConexion().prepareStatement(sql);
+        sentencia.setString(1, ccaa);
+        ResultSet resultado = sentencia.executeQuery();
+        while (resultado.next()) {
+            id_ciudad = resultado.getInt("id_ciudad");
+        }
+        return id_ciudad;
+    }
+    
     public ArrayList<Ciudad> listarCiudadesParquesExtension(int extension) throws SQLException {
         String sql = "SELECT c.nombre, SUM(p.extension) \n"
                 + "FROM ciudades c inner JOIN parques p \n"
@@ -49,7 +55,7 @@ Usuario =  Ciudad    CiudadDAO  ciudadDAO ciudad
         while (resultado.next()) {
             Ciudad ciudad = new Ciudad();
             ciudad.setNombre(resultado.getString(1));
-
+            ciudad1.add(ciudad);
         }
         return ciudad1;
 

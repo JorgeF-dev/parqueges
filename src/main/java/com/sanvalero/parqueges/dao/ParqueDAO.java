@@ -40,23 +40,39 @@ public class ParqueDAO {
         ResultSet resultado = sentencia.executeQuery();
         while (resultado.next()) {
             Parque parque = new Parque();
-            parque.setId_ciudad(resultado.getInt(1));
+            parque.setNombre(resultado.getString(1));
 
             park1.add(parque);
         }
         return park1;
     }
-
-    /*
-CuentaCorriente = Parque  ParqueDAO parqueDAO parque
-Usuario =  Ciudad    CiudadDAO  ciudadDAO ciudad
-     */
-    public void modificarParque() throws SQLException {
-        String sql = "UPDATE parques SET nombre = ?, extension = ?  WHERE id_parque = ?";
-        int id_ciudad = ciudadDAO.verId(sql);
+    public int verIdParque(String nombre) throws SQLException {
+        String sql = "SELECT id_parque FROM parques WHERE nombre = ?";
+        int id_parque = 0;
         PreparedStatement sentencia = connection.getConexion().prepareStatement(sql);
+        sentencia.setString(1, nombre);
+        ResultSet resultado = sentencia.executeQuery();
+        while (resultado.next()) {
+            id_parque = resultado.getInt("id_parque");
+        }
+        return id_parque;
+    }
 
+    public void modificarParque(String nombre, int id_parque, int extension) throws SQLException {
+        String sql = "UPDATE parques SET nombre = ?, extension = ?  WHERE id_parque = ?";
+        id_parque = verIdParque(nombre);
+        PreparedStatement sentencia = connection.getConexion().prepareStatement(sql);
+        sentencia.setString(1, nombre);
+        sentencia.setInt(2, extension);
+        sentencia.setInt(3, id_parque);
+        sentencia.executeUpdate();
+        
+        
+//public void modificarParque(String nuevonombre, int id_parque, int nuevaextension)
+//  sentencia.setString(1, nuevonombre);
+//        sentencia.setInt(2, nuevaextension);
 //        float saldo = cc.getSaldo() + util.getIngreso();
+//        sentencia.setInt(2, cc.getId_usuario());
 //        sentencia.setInt(2, id_usuario);
 //        sentencia.setFloat(1, saldo);
 //        sentencia.executeUpdate();
@@ -72,6 +88,7 @@ Usuario =  Ciudad    CiudadDAO  ciudadDAO ciudad
         while (resultado.next()) {
             Parque parque = new Parque();
             parque.setNombre(resultado.getString(1));
+            
 
             parques.add(parque);
         }
