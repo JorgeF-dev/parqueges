@@ -10,8 +10,6 @@ public class Parque {
     private int id_ciudad;
     private int extension;
     private String nombre;
-    Ciudad ciudad = new Ciudad();
-    String nombreCiudad = ciudad.getNombre();
 
     public Parque(int id_parque, int id_ciudad, int extension, String nombre) {
         this.id_parque = id_parque;
@@ -25,12 +23,7 @@ public class Parque {
         this.extension = extension;
         this.nombre = nombre;
     }
-    public Parque(String nombre, String nomobreCiudad, int extension) {
-        this.nombre = nombre;
-        nombreCiudad = ciudad.getNombre();
-        this.extension = extension;
-    }
-    
+
     public Parque() {
     }
 
