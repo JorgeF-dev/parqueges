@@ -1,9 +1,11 @@
 package com.sanvalero.parqueges.domain;
+
 /**
  *
  * @author Jorge Fernandez <jorgefuli91@gmail.com>
  */
 public class Ciudad {
+
     private int id_ciudad;
     private String nombre;
     private String ccaa;
@@ -16,7 +18,6 @@ public class Ciudad {
 
     public Ciudad() {
     }
-    
 
     public int getId_ciudad() {
         return id_ciudad;
@@ -44,7 +45,10 @@ public class Ciudad {
 
     @Override
     public String toString() {
-        return "Ciudad {" + " Nombre= " + nombre + ", comunidad autónoma= " + ccaa + '}';
+        return "Ciudad {" + " Nombre= " + nombre + '}';
     }
-
+//    @Override
+//    public String toString() {
+//        return "Ciudad {" + " Nombre= " + nombre + ", comunidad autónoma= " + ccaa + '}';
+//    }
 }

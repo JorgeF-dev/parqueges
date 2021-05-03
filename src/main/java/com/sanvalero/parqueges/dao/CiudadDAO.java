@@ -18,7 +18,7 @@ public class CiudadDAO {
         this.connection = connection;
     }
 
-    public int verId(String nombre) throws SQLException {
+    public int verIdCiudad(String nombre) throws SQLException {
         String sql = "SELECT id_ciudad FROM ciudades WHERE nombre = ?";
         int id_ciudad = 0;
         PreparedStatement sentencia = connection.getConexion().prepareStatement(sql);
@@ -29,18 +29,23 @@ public class CiudadDAO {
         }
         return id_ciudad;
     }
-    public int verIdCCAA(String ccaa) throws SQLException {
-        String sql = "SELECT id_ciudad FROM ciudades WHERE ccaa = ?";
-        int id_ciudad = 0;
+
+//    nombresC = ciudadDAO.nombresCiudad(ccaa);
+    public ArrayList<Ciudad> nombresCiudad(String ccaa) throws SQLException {
+        String sql = "SELECT nombre FROM ciudades WHERE ccaa = ?";
         PreparedStatement sentencia = connection.getConexion().prepareStatement(sql);
+        ArrayList<Ciudad> nombresC = new ArrayList<>();
         sentencia.setString(1, ccaa);
         ResultSet resultado = sentencia.executeQuery();
         while (resultado.next()) {
-            id_ciudad = resultado.getInt("id_ciudad");
+            Ciudad ciudad = new Ciudad();
+            ciudad.setNombre(resultado.getString(1));
+            nombresC.add(ciudad);
+
         }
-        return id_ciudad;
+        return nombresC;
     }
-    
+
     public ArrayList<Ciudad> listarCiudadesParquesExtension(int extension) throws SQLException {
         String sql = "SELECT c.nombre, SUM(p.extension) \n"
                 + "FROM ciudades c inner JOIN parques p \n"
