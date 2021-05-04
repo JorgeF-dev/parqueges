@@ -1,0 +1,6 @@
+projectKey=com.sanvalero.cajero2:parqueges
+serverUrl=http://192.168.1.63
+serverVersion=8.8.0.42792
+dashboardUrl=http://192.168.1.63/dashboard?id=com.sanvalero.cajero2%3Aparqueges
+ceTaskId=AXk32SWVxIwVGzAM4t8D
+ceTaskUrl=http://192.168.1.63/api/ce/task?id=AXk32SWVxIwVGzAM4t8D

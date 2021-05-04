@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4cecee19-f0cd-4e92-8cb8-05f5f4d81ca9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sanvalero/parqueges/ParqueGes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sanvalero/parqueges/ParqueGes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sanvalero/parqueges/dao/CiudadDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sanvalero/parqueges/dao/CiudadDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/.netbeans_automatic_build" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/sanvalero/parqueges/ParqueGes.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sanvalero/parqueges/ParqueGes.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/sanvalero/parqueges/dao/CiudadDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sanvalero/parqueges/dao/CiudadDAO.class" afterDir="false" />
@@ -32,6 +34,26 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/pom.xml" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.sanvalero.parqueges.Application" />
+      <module name="parqueges" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.sanvalero.parqueges.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Application" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
