@@ -18,15 +18,14 @@ public class Parque {
         this.nombre = nombre;
     }
 
-    public Parque() {
-    }
-
     public Parque(int id_ciudad, int extension, String nombre) {
         this.id_ciudad = id_ciudad;
         this.extension = extension;
         this.nombre = nombre;
     }
-    
+
+    public Parque() {
+    }
 
     public int getId_parque() {
         return id_parque;
@@ -60,6 +59,9 @@ public class Parque {
         this.nombre = nombre;
     }
     
-    
+    @Override
+    public String toString() {
+        return "Parques {" + " Nombre= " + nombre + '}';
+    }
     
 }

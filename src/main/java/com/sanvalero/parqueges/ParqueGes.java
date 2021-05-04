@@ -46,7 +46,7 @@ public class ParqueGes {
             System.out.println("8. Listar el nombre de todas las ciudades que contengan parques cuya suma total de su extensión, sea mayor a la que indiques");
             System.out.println("x. Salir");
             System.out.println("Selecciona: ");
-            String menu = teclado.next();
+            String menu = teclado.nextLine();
 
             switch (menu.toUpperCase()) {
                 case "1":
@@ -85,49 +85,53 @@ public class ParqueGes {
 
     private void verParquesCiudad() {
         System.out.println("Introduce el nombre de la ciudad:");
-        String nombre = teclado.next();
+        String nombre = teclado.nextLine();
         try {
-            int id_ciudad = ciudadDAO.verId(nombre);
-            ArrayList<Parque> parque1;
-            parque1 = parqueDAO.listarParques(id_ciudad);
-            for (Parque parque : parque1) {
-                System.out.print(parque);
-            }
-
-        } catch (SQLException sqle) {
-            System.out.println("Se ha producido un problema leyendo los datos");
-            sqle.printStackTrace();
-        }
-    }
-
-    private void verParquesComunidad() {
-        System.out.println("Introduce el nombre de la comunidad autónoma:");
-        String ccaa = teclado.next();
-        try {
-            int id_ciudad = ciudadDAO.verId(ccaa);
+            int id_ciudad = ciudadDAO.verIdCiudad(nombre);
             ArrayList<Parque> parque1;
             parque1 = parqueDAO.listarParques(id_ciudad);
             for (Parque parque : parque1) {
                 System.out.println(parque);
             }
-
         } catch (SQLException sqle) {
             System.out.println("Se ha producido un problema leyendo los datos");
             sqle.printStackTrace();
         }
     }
-
-    private void addParqueAciudad() {
-        int id_ciudad = 0;
-        System.out.println("Nombra la ciudad: (ej. Madrid)");
-        String nombre = teclado.next();
+//quiero saber el nombre de las ciudades de una ccaa para luego poder usar ciudadDAO.verID(nombre);
+    private void verParquesComunidad() {
+        System.out.println("Introduce el nombre de la comunidad autónoma: ");
+        String ccaa = teclado.nextLine();
         try {
-            id_ciudad = ciudadDAO.verId(nombre);
+            ArrayList<Ciudad> nombresC;
+            nombresC = ciudadDAO.nombresCiudad(ccaa);
+            for (Ciudad ciudad : nombresC) {
+                System.out.println(ciudad); // == ciudad.toString();
+                String nombre = ciudad.getNombre();
+            int id_ciudad = ciudadDAO.verIdCiudad(nombre);
+            ArrayList<Parque> parque1;
+            parque1 = parqueDAO.listarParques(id_ciudad);
+            for (Parque parque : parque1) {
+                System.out.println(parque);
+            }
+            }
+        } catch (SQLException sqle) {
+            System.out.println("Se ha producido un problema leyendo los datos");
+            sqle.printStackTrace();
+        }
+    }
+    //TODO Falta equals para ver si el parque a añadir ya existe en la bbddd    
+    private void addParqueAciudad() {
+        int id_ciudad;
+        System.out.println("Nombra la ciudad: (ej. Madrid)");
+        String nombre = teclado.nextLine();
+        try {
+            id_ciudad = ciudadDAO.verIdCiudad(nombre);
 
             System.out.println("Introduce el nombre del parque que quieres añadir: ");
-            String nuevoparque = teclado.next();
+            String nuevoparque = teclado.nextLine();
             System.out.println("Introduce la extension del parque: ");
-            int extension = teclado.nextInt();
+            int extension = Integer.parseInt(teclado.nextLine());
 
             Parque parque = new Parque(id_ciudad, extension, nuevoparque);
             try {
@@ -143,15 +147,31 @@ public class ParqueGes {
         }
 
     }
-//TODO falta terminar en ParqueDAO, no funciona
 
     private void modificarParque() {
-
+        System.out.println("Nombra el parque: (ej. Labordeta)");
+        String nombre = teclado.nextLine();
+        try {
+            int id_parque = parqueDAO.verIdParque(nombre);
+            System.out.println("Nuevo nombre del parque: ");
+            String nuevonombre = teclado.nextLine();
+            System.out.println("Ciudad: ");
+            String nuevaciudad = teclado.nextLine();
+            int id_ciudad = ciudadDAO.verIdCiudad(nuevaciudad);  //***************************************************
+            System.out.println("Nueva extension: ");
+            int nuevaextension = Integer.parseInt(teclado.nextLine());
+            Parque parque = new Parque(id_parque, id_ciudad, nuevaextension, nuevonombre);
+            parqueDAO.modificarParque(parque);
+        } catch (SQLException sqle) {
+            System.out.println("El nombre del parque no es correcto");
+            sqle.printStackTrace();
+        }
     }
 
     private void buscarParque() {
         System.out.println("Introduce la cadena de busqueda: ");
-        String cadenaBusqueda = teclado.next();
+        String cadenaBusqueda1 = teclado.nextLine();
+        String cadenaBusqueda = '%' + cadenaBusqueda1 + '%';
         try {
             ArrayList<Parque> parque1;
             parque1 = parqueDAO.buscarParque(cadenaBusqueda);
@@ -164,23 +184,19 @@ public class ParqueGes {
         }
     }
 
-    /*
-CuentaCorriente = Parque  ParqueDAO parqueDAO parque
-Usuario =  Ciudad    CiudadDAO  ciudadDAO ciudad
-     */
     private void numParquesExt() {
         //parques de una determinada ciudad cuya extension individual sea mayor de la que ponga
-        int id_ciudad = 0;
-        int cantidad1 = 0;
+        int id_ciudad;
+        int cantidad1;
         System.out.println("Nombra la ciudad: (ej. Madrid)");
-        String nombre = teclado.next();
+        String nombre = teclado.nextLine();
         try {
-            id_ciudad = ciudadDAO.verId(nombre);
+            id_ciudad = ciudadDAO.verIdCiudad(nombre);
 
             System.out.println("Introduce la extensión: ");
-            int extension = teclado.nextInt();
+            int extension = Integer.parseInt(teclado.nextLine());
             cantidad1 = parqueDAO.numParquesExt(id_ciudad, extension);
-            System.out.println(cantidad1);
+            System.out.println("Número de parques con más extensión = " + cantidad1);
 
         } catch (SQLException sqle) {
             System.out.println("Se ha producido un problema leyendo los datos");
@@ -189,32 +205,35 @@ Usuario =  Ciudad    CiudadDAO  ciudadDAO ciudad
     }
 
     private void borrarParquesDeCiudad() {
-        int id_ciudad = 0;
         System.out.println("Nombra la ciudad: (ej. Madrid)");
-        String nombre = teclado.next();
+        String nombre = teclado.nextLine();
         try {
-            id_ciudad = ciudadDAO.verId(nombre);
+            int id_ciudad = ciudadDAO.verIdCiudad(nombre);
+            parqueDAO.borrarParquesDeCiudad(id_ciudad);
+            System.out.println("Parques de la ciudad borrados");
         } catch (SQLException sqle) {
             System.out.println("Se ha producido un problema leyendo los datos");
             sqle.printStackTrace();
         }
 
     }
-
+//TODO falta por hacer, NO FUNCIONA.
     private void listarCiudadesParquesExtension() {
         System.out.println("Indica la extensión: ");
-        int extension = teclado.nextInt();
+        int extension = Integer.parseInt(teclado.nextLine());
+
         try {
             ArrayList<Ciudad> ciudad1;
             ciudad1 = ciudadDAO.listarCiudadesParquesExtension(extension);
-            for (Ciudad ciudad : ciudad1)
+            for (Ciudad ciudad : ciudad1) {
                 System.out.println(ciudad);
+            }
 
-            }catch (SQLException sqle) {
+        } catch (SQLException sqle) {
             System.out.println("Se ha producido un problema leyendo los datos");
             sqle.printStackTrace();
         }
-    } 
+    }
 
     private void salir() {
         salir = true;
