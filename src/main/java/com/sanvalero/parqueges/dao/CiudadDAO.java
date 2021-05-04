@@ -47,15 +47,15 @@ public class CiudadDAO {
     }
 
     public ArrayList<Ciudad> listarCiudadesParquesExtension(int extension) throws SQLException {
-        String sql = "SELECT c.nombre, SUM(p.extension) \n"
-                + "FROM ciudades c inner JOIN parques p \n"
-                + "ON c.id_ciudad=p.id_ciudad \n"
-                + "GROUP BY c.nombre \n"
+        String sql = "SELECT c.nombre, SUM(p.extension) "
+                + "FROM ciudades c left outer JOIN parques p "
+                + "ON c.id_ciudad=p.id_ciudad "
+                + "GROUP BY c.nombre "
                 + "HAVING SUM(p.extension) >= ?";
 
         PreparedStatement sentencia = connection.getConexion().prepareStatement(sql);
         ArrayList<Ciudad> ciudad1 = new ArrayList<>();
-        sentencia.setInt(2, extension);
+        sentencia.setInt(1, extension);
         ResultSet resultado = sentencia.executeQuery();
         while (resultado.next()) {
             Ciudad ciudad = new Ciudad();

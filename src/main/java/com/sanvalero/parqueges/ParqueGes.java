@@ -217,7 +217,7 @@ public class ParqueGes {
         }
 
     }
-//TODO falta por hacer, NO FUNCIONA.
+
     private void listarCiudadesParquesExtension() {
         System.out.println("Indica la extensión: ");
         int extension = Integer.parseInt(teclado.nextLine());
