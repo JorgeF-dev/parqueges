@@ -120,7 +120,7 @@ public class ParqueGes {
             sqle.printStackTrace();
         }
     }
-        
+    //TODO Falta equals para ver si el parque a añadir ya existe en la bbddd    
     private void addParqueAciudad() {
         int id_ciudad;
         System.out.println("Nombra la ciudad: (ej. Madrid)");
@@ -149,7 +149,6 @@ public class ParqueGes {
     }
 
     private void modificarParque() {
-        int nuevaextension;
         System.out.println("Nombra el parque: (ej. Labordeta)");
         String nombre = teclado.nextLine();
         try {
@@ -160,7 +159,7 @@ public class ParqueGes {
             String nuevaciudad = teclado.nextLine();
             int id_ciudad = ciudadDAO.verIdCiudad(nuevaciudad);  //***************************************************
             System.out.println("Nueva extension: ");
-            nuevaextension = Integer.parseInt(teclado.nextLine());
+            int nuevaextension = Integer.parseInt(teclado.nextLine());
             Parque parque = new Parque(id_parque, id_ciudad, nuevaextension, nuevonombre);
             parqueDAO.modificarParque(parque);
         } catch (SQLException sqle) {
